@@ -4,7 +4,7 @@ import { fallbackArticles } from "../data/mockData";
 import { Link2, Sparkles, AlertCircle, RefreshCw, Send, CheckCircle, Database, HelpCircle } from "lucide-react";
 
 export default function DynamicArticles() {
-  const DEFAULT_PLACEHOLDER_URL = "https://script.google.com/macros/s/AKfycbwScN8udYxykpc0pRugqiR5C_towUaKu_F6Ny_-40JuRs7k9lslgUgLHsss0CLK9dRT/exec";
+  const DEFAULT_PLACEHOLDER_URL = "https://script.google.com/macros/s/AKfycbzkrABxxogiC18bG5Ll6ulO9YB6ApJUjMIUsmlmkpY-6Kv89YpT-gJ0VVpUJH3flDw2EA/exec";
   
   const [scriptURL, setScriptURL] = useState<string>(() => {
     return localStorage.getItem("google_sheets_apps_script_url") || DEFAULT_PLACEHOLDER_URL;
