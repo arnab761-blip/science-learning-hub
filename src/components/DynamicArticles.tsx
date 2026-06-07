@@ -30,7 +30,14 @@ useEffect(() => {
           if (!response.ok) throw new Error("Failed to fetch data");
           
           const data = await response.json();
-          setArticles(data);
+          
+          // 🛡️ ওয়েবসাইট ব্ল্যাঙ্ক হওয়া আটকানোর সেফগার্ড (ডাটা অ্যারে না হলে মক ডাটা দেখাবে)
+          if (Array.isArray(data)) {
+            setArticles(data);
+          } else {
+            console.error("Data is not an array:", data);
+            setArticles(fallbackArticles);
+          }
         } catch (error: any) {
           console.error("Google Sheets Fetch Error:", error);
           setFetchError(error.message || "Failed to load live data");
@@ -47,17 +54,6 @@ useEffect(() => {
     fetchSheetData();
   }, [isLiveMode, scriptURL]);
 
-  // Asynchronous function to fetch articles from Google Sheets via Apps Script Web App
-  const fetchArticles = async (urlToFetch: string, forceLive: boolean) => {
-    // If the URL is just the placeholder, use the demo articles
-    if (!urlToFetch || urlToFetch.trim() === DEFAULT_PLACEHOLDER_URL || !forceLive) {
-      setIsLoading(true);
-      setFetchError(null);
-      // Simulate slight network delay for high-fidelity interactive feel
-      setTimeout(() => {
-        setArticles(fallbackArticles);
-        setIsLoading(false);
-      }, 600);
       return;
     }
 
