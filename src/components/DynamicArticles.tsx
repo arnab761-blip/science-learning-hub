@@ -18,6 +18,34 @@ export default function DynamicArticles() {
     return localStorage.getItem("is_live_sheets_mode") === "true";
   });
   const [showGuide, setShowGuide] = useState(false);
+useEffect(() => {
+    const fetchSheetData = async () => {
+      const targetURL = scriptURL || DEFAULT_PLACEHOLDER_URL;
+
+      if (isLiveMode && targetURL) {
+        setIsLoading(true);
+        setFetchError(null);
+        try {
+          const response = await fetch(targetURL);
+          if (!response.ok) throw new Error("Failed to fetch data");
+          
+          const data = await response.json();
+          setArticles(data);
+        } catch (error: any) {
+          console.error("Google Sheets Fetch Error:", error);
+          setFetchError(error.message || "Failed to load live data");
+          setArticles(fallbackArticles);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setArticles(fallbackArticles);
+        setIsLoading(false);
+      }
+    };
+
+    fetchSheetData();
+  }, [isLiveMode, scriptURL]);
 
   // Asynchronous function to fetch articles from Google Sheets via Apps Script Web App
   const fetchArticles = async (urlToFetch: string, forceLive: boolean) => {
