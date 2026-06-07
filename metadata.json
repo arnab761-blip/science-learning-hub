@@ -1,0 +1,6 @@
+{
+  "name": "Science Learning Hub",
+  "description": "An interactive, modern educational platform and community hub for exploring space, physics, genetics, and technology, featuring a dynamic Google Sheets-connected news feed, Q&A board, and reference ebooks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
